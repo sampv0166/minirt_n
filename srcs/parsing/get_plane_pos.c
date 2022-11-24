@@ -59,7 +59,7 @@ t_plane *plane)
 		*idx = *idx + 1;
 	}
 	if (check != 3)
-		errormsg(19);
+		errormsg2(19);
 	plane->pos = create_tuple(xyz[0], xyz[1], xyz[2], 1);
 	free(xyz);
 	return (check);

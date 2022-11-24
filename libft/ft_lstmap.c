@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 17:03:08 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 16:10:55 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/10/16 17:23:49 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/18 01:40:23 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*mapped;
-	t_list	*tmp;
+	t_list	*element;
+	t_list	*newlist;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	mapped = NULL;
+	newlist = 0;
+	if (!lst)
+		return (0);
 	while (lst != NULL)
 	{
-		tmp = ft_lstnew((*f)(lst->content));
-		if (tmp == NULL)
+		element = ft_lstnew(f(lst->content));
+		if (!element)
 		{
-			ft_lstclear(&mapped, del);
-			return (NULL);
+			ft_lstclear(&newlist, del);
+			return (0);
 		}
-		ft_lstadd_back(&mapped, tmp);
+		ft_lstadd_back(&newlist, element);
 		lst = lst->next;
 	}
-	return (mapped);
+	return (newlist);
 }

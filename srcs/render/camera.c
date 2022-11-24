@@ -12,7 +12,7 @@
 
 #include "../../include/minirt.h"
 
-void	camera_pixel_size(t_rt *rt, t_cam *cam)
+void	camera_pixel_size( t_cam *cam)
 {
 	double	half_view;
 	double	aspect;
@@ -21,7 +21,7 @@ void	camera_pixel_size(t_rt *rt, t_cam *cam)
 	rad = degrees_to_radians(cam->fov);
 	printf("%f", rad);
 	half_view = tan(rad / 2);
-	aspect = (double)rt->reso.width / (double)rt->reso.height;
+	aspect = (double)WIDTH/ (double)HEIGHT;
 	if (aspect >= 1)
 	{
 		cam->half_width = half_view;
@@ -32,7 +32,7 @@ void	camera_pixel_size(t_rt *rt, t_cam *cam)
 		cam->half_width = half_view * aspect;
 		cam->half_height = half_view;
 	}
-	cam->pixel_size = (cam->half_width * 2) / rt->reso.width;
+	cam->pixel_size = (cam->half_width * 2) / WIDTH;
 }
 
 t_ray	ray_for_pixel(t_cam *cam, int x, int y)

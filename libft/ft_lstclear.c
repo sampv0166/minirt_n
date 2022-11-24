@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcouto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 16:27:20 by lcouto            #+#    #+#             */
-/*   Updated: 2020/02/03 16:40:07 by lcouto           ###   ########.fr       */
+/*   Created: 2021/10/16 15:21:26 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/18 01:37:25 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	if (lst == NULL)
+	t_list	*position;
+
+	position = *lst;
+	if (!lst)
 		return ;
-	if (*lst == NULL)
-		return ;
-	ft_lstclear(&((*lst)->next), del);
-	ft_lstdelone(*lst, del);
-	*lst = NULL;
+	while (*lst != NULL)
+	{
+		position = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = position;
+	}
 }

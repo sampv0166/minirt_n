@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 11:25:24 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 14:36:38 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/09/26 19:00:23 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/01 02:29:00 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-int	ft_isdigit(int c)
+int	ft_isdigit(int val)
 {
-	if (c >= '0' && c <= '9')
+	if (val >= '0' && val <= '9')
 		return (1);
-	else
-		return (0);
+	else if (val == '+' || val == '-')
+		return (1);
+	return (0);
 }

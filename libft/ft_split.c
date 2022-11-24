@@ -3,72 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/09 16:17:44 by gsenra-a          #+#    #+#             */
-/*   Updated: 2021/04/09 16:19:40 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/10/16 07:53:59 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/22 13:02:55 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-static size_t	ft_split_counter(char const *s, char c)
+static size_t	ft_count(char const *s, char c)
 {
-	size_t	splits;
-	int		i;
+	size_t		i;
+	size_t		j;
 
-	splits = 0;
 	i = 0;
+	j = 0;
 	while (s[i])
 	{
 		if (s[i] == c)
 		{
 			i++;
-			continue ;
 		}
-		splits++;
-		while (s[i] && s[i] != c)
-			i++;
+		else if (s[i] != c)
+		{
+			while (s[i] && s[i] != c)
+			{
+				i++;
+			}
+			j++;
+		}
 	}
-	return (splits);
+	return (j);
 }
 
-static void	*ft_free_strings(char **strings)
+static char	**ft_create_string(char **ptr, char const *s, char c, size_t len)
 {
-	if (strings == NULL)
-		return (NULL);
-	while (*strings != NULL)
-		free(*strings++);
-	free(strings);
-	return (NULL);
+	size_t	i;
+	size_t	array_index;
+
+	i = 0 ;
+	array_index = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			while (s[i] && s[i] != c)
+			{
+				i++;
+				len++;
+			}
+			ptr[array_index++] = ft_substr(s, i - len, len);
+			len = 0;
+		}
+		else
+			i++;
+	}
+	ptr[array_index] = NULL;
+	return (ptr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**strs;
-	size_t	a;
-	size_t	i;
-	size_t	j;
+	char	**ptr;
+	size_t	first_array_length;
+	size_t	string_length;
 
-	if (s == NULL)
-		return (NULL);
-	a = ft_split_counter(s, c);
-	strs = (char **)malloc(sizeof(char *) * (a + 1));
-	a = 0;
-	j = -1;
-	while (s[++j])
+	string_length = 0;
+	if (!s)
+		return (0);
+	first_array_length = ft_count(s, c);
+	ptr = (char **)ft_calloc(sizeof (char *), (first_array_length + 1));
+	if (!ptr)
+		return (0);
+	if (first_array_length <= 0)
 	{
-		if (s[j] == c)
-			continue ;
-		i = 0;
-		while (s[j + i] && s[j + i] != c)
-			i++;
-		strs[a++] = ft_substr(s, j, i);
-		if (strs == NULL)
-			return (ft_free_strings(strs));
-		j += i - 1;
+		ptr[0] = NULL;
+		return (ptr);
 	}
-	strs[a] = NULL;
-	return (strs);
+	ptr = ft_create_string(ptr, s, c, string_length);
+	return (ptr);
 }

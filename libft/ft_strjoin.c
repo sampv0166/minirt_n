@@ -3,39 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 10:56:52 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 16:22:01 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/10/01 03:18:18 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/17 16:21:56 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*free_memmory(char **ptr)
 {
-	size_t	sz;
-	int		i;
-	int		j;
-	char	*joinedstr;
+	free(*ptr);
+	*ptr = NULL;
+	return (NULL);
+}
+
+char	*ft_strjoin(char *saved_line, char *buffer)
+{
+	char	*new_string;
+	int		total_len;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	sz = ft_strlen(s1) + ft_strlen(s2);
-	joinedstr = malloc((sizeof(char) * sz) + 1);
-	while (s1[i] != '\0')
-	{
-		joinedstr[i] = s1[i];
-		i++;
-	}
-	while (s2[j] != '\0')
-	{
-		joinedstr[i + j] = s2[j];
-		j++;
-	}
-	joinedstr[i + j] = '\0';
-	return (joinedstr);
+	total_len = ft_strlen(saved_line) + ft_strlen(buffer) + 1;
+	new_string = (char *) malloc(sizeof(char) * (total_len));
+	if (new_string == NULL)
+		return (free_memmory(&new_string));
+	while (saved_line && saved_line[i])
+		new_string[i++] = saved_line[j++];
+	j = 0;
+	while (buffer && buffer[j])
+		new_string[i++] = buffer[j++];
+	new_string[i] = '\0';
+	if (saved_line)
+		free_memmory(&saved_line);
+	return (new_string);
 }

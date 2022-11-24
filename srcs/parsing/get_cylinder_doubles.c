@@ -28,7 +28,7 @@ t_cylinder *cylinder)
 		i++;
 	}
 	if (check != 8 || height <= 0)
-		errormsg(48);
+		errormsg2(48);
 	cylinder->height = height;
 	return (check);
 }
@@ -49,7 +49,7 @@ t_cylinder *cylinder)
 		i++;
 	}
 	if (check != 7 || diameter <= 0)
-		errormsg(47);
+		errormsg2(47);
 	cylinder->diameter = diameter;
 	cylinder->radius = diameter / 2;
 	return (check);

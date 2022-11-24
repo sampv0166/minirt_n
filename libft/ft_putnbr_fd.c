@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_ft.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcouto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/30 10:18:29 by lcouto            #+#    #+#             */
-/*   Updated: 2020/01/30 10:45:13 by lcouto           ###   ########.fr       */
+/*   Created: 2021/10/16 09:31:11 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/16 09:31:37 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int	nbr;
-
-	if (n < 0)
+	if (n == -2147483648)
 	{
 		ft_putchar_fd('-', fd);
-		nbr = (unsigned int)(n * -1);
+		ft_putchar_fd('2', fd);
+		ft_putnbr_fd(147483648, fd);
 	}
+	else if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(n * -1, fd);
+	}
+	else if (n < 10)
+		ft_putchar_fd((char)(n + '0'), fd);
 	else
-		nbr = (unsigned int)n;
-	if (nbr >= 10)
-		ft_putnbr_fd(nbr / 10, fd);
-	ft_putchar_fd((char)(nbr % 10 + 48), fd);
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putchar_fd(n % 10 + '0', fd);
+	}
 }

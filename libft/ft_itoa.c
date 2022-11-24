@@ -3,63 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 14:39:55 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 16:05:57 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/10/16 09:43:22 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/20 11:27:38 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-static int	get_return_len(unsigned int n)
+static size_t	ft_find_len(long num)
 {
-	unsigned int	len;
+	size_t	len;
+	long	number;
 
+	number = num;
 	len = 0;
-	while (n >= 10)
+	if (number == 0)
+		return (2);
+	while (number != 0)
 	{
-		n /= 10;
-		++len;
+		number = number / 10;
+		len++;
 	}
+	if (num < 0)
+		return (len + 2);
 	return (len + 1);
 }
 
-static char	*itoa_loop(unsigned int	nb, char *str, unsigned int len)
+static void	ft_itoa2(long number, char *ptr, size_t i, int n)
 {
-	int	i;
-
-	i = len - 1;
-	while (nb >= 10)
+	while (number != 0)
 	{
-		str[i--] = (char)(nb % 10 + 48);
-		nb /= 10;
+		ptr[i] = ((number % 10) + '0');
+		number = number / 10;
+		i--;
 	}
-	str[i] = (char)(nb % 10 + 48);
-	str[len] = '\0';
-	return (str);
+	if (n == 0)
+	{
+		ptr[0] = '0';
+	}
 }
 
 char	*ft_itoa(int n)
 {
-	char			*str;
-	unsigned int	nb;
-	unsigned int	len;
+	size_t	array_length;
+	char	*ptr;
+	size_t	i;
+	long	number;
 
-	if (n < 0)
-		nb = (unsigned int)(n * -1);
-	else
-		nb = (unsigned int)n;
-	len = (unsigned int)get_return_len(nb);
-	if (n < 0)
-		str = (char *)malloc(sizeof(char) * (len + 1 + 1));
-	else
-		str = (char *)malloc(sizeof(char) * (len + 1));
-	if (n < 0)
+	number = n;
+	array_length = ft_find_len(number);
+	i = array_length - 1;
+	ptr = (char *)malloc(sizeof(char) * array_length);
+	if (ptr == NULL)
+		return (ptr);
+	ptr[i] = '\0';
+	i = i - 1;
+	if (number < 0)
 	{
-		str[0] = '-';
-		len++;
+		ptr[0] = '-';
+		number = number * -1;
 	}
-	return (itoa_loop(nb, str, len));
+	ft_itoa2(number, ptr, i, n);
+	return (ptr);
 }

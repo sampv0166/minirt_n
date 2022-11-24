@@ -31,9 +31,11 @@
 
 # define EPSILON 0.00001
 
+# define WIDTH 640
+# define HEIGHT 480
+
 typedef struct		s_qts
 {
-	int				reso;
 	int				ambi;
 	int				cam;
 	int				lt;
@@ -47,7 +49,6 @@ typedef struct		s_qts
 typedef struct		s_rt
 {
 	t_qts			qts;
-	t_reso			reso;
 	t_ambi			ambi;
 	t_cam			*cam;
 	t_light			*light;
@@ -96,10 +97,10 @@ typedef struct		s_comps
 */
 
 void				init_rt(t_rt *rt);
-void				errormsg(int errornum);
+void				errormsg(char *msg);
 void				*ec_malloc(size_t size);
 void				*ec_calloc(size_t n, size_t size);
-void				rt_identify(char *line, t_rt *rt, t_mlx *mlx);
+void				parse_current_line(char *line, t_rt *rt);
 int					get_index(char *line, int i);
 int					get_index_nocomma(char *line, int i);
 double				get_coord(char *line, int i);
@@ -108,7 +109,24 @@ void				get_material(t_phong *phong, char *line, int i);
 t_color				fill_color(int r, int g, int b);
 double				get_single_double(char *line, int i);
 void				comma_check(char *line, int idx, int error);
-
+char				*get_next_line(int fd);
+char	*free_memmory(char **ptr);
+size_t	get_current_line_size(char *saved_line);
+double	ft_atof(char *s);
+void		errormsg2(int num);
+ int get_2darray_size(char **arr);
+ int skip_dot_verify_digits(char *str);
+ void free_2d_char_array(char **arr);
+void parse_ambient_lighting(char **info, t_rt *rt);
+double parse_double(char *str);
+void parse_camera(char **info, t_rt *rt);
+void parse_color(char *str, t_color *colors);
+void parse_light(char **info, t_rt *rt);
+void replace_tabs_and_newline(char *line);
+void parse_sphere(char **info, t_rt *rt);
+void parse_plane(char **info, t_rt *rt);
+void parse_cylinder(char **info, t_rt *rt);
+// int verify_digits(char **color_split ,char **info, t_rt *rt);
 /*
 ** Window resolution parsing functions.
 */
@@ -204,7 +222,7 @@ void				free_intersecs(t_intersec *intersec);
 ** Core render functions.
 */
 
-void				canvas(t_rt *rt, t_mlx *mlx);
+void				render(t_rt *rt, t_mlx *mlx);
 void				raycaster(t_rt *rt, t_mlx *mlx, t_cam *cam);
 void				cast_pixel(t_raycaster *rc, t_rt *rt,
 					t_mlx *mlx, t_cam *cam);
@@ -217,10 +235,10 @@ void				prepare_computations(t_comps *comps, t_rt *rt,
 					t_raycaster *rc);
 t_rgba				shade_hit(t_comps comps, t_rt *rt);
 t_matrix			view_transform(t_tuple from, t_tuple to, t_tuple up);
-void				camera_pixel_size(t_rt *rt, t_cam *cam);
+void				camera_pixel_size( t_cam *cam);
 t_ray				ray_for_pixel(t_cam *cam, int x, int y);
 int					is_shadowed(t_comps comps, t_rt *rt, t_light *light);
-void				create_images(t_rt *rt, t_mlx *mlx);
+void				create_image(t_rt *rt, t_mlx *mlx);
 
 /*
 ** Polygon rendering functions.

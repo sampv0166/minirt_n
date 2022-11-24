@@ -21,6 +21,6 @@ int		get_index(char *line, int i)
 			line[j] == '.' || line[j] == ',' || line[j] == '-')
 		j++;
 	if (line[j] != ' ' && line[j] != '\0')
-		errormsg(5);
+		errormsg2(5);
 	return (j);
 }

@@ -82,9 +82,103 @@ static int		sphere_loop(char *line, int i, int check, t_sphere *sphere)
 		else if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
 			i = loop_get_values(line, i, chkptr, sphere);
 		else if ((!(line[i] >= '0' && line[i] <= '9')) || (!(line[i] == ' ')))
-			errormsg(5);
+			errormsg2(5);
 	}
 	return (i);
+}
+
+static int verify_digits( char **pnt_split, char **color_split ,char **info)
+{
+    int i;
+
+    i = 0;
+    while (i < 3)
+    {
+        if (skip_dot_verify_digits(pnt_split[i]) || skip_dot_verify_digits(color_split[i]) )
+            return (0);
+        i++;
+    }
+    if (skip_dot_verify_digits(info[2]))
+        return (0); 
+    return(1);
+}
+
+// !REDUCE TO 25 LINES  - SAMAD
+void parse_sphere(char **info, t_rt *rt)
+{
+    char **point_split;
+    char **color_split;
+	t_sphere	*sphere;
+	t_phong		newphong;
+
+
+    if (get_2darray_size(info) != 4)
+	{
+        errormsg("INVALID NUMBER OF VALUES FOR SPHERE");
+
+	}
+    
+	sphere = (t_sphere *)ec_malloc(sizeof(t_sphere));
+	newphong = default_phong();
+
+    point_split = ft_split(info[1], ',');
+    color_split = ft_split(info[3], ',');
+    if (get_2darray_size(point_split) == 3 && get_2darray_size(color_split) == 3
+        && verify_digits(point_split ,color_split, info) )
+    {
+        sphere->center.x = parse_double(point_split[0]);
+        sphere->center.y  = parse_double(point_split[1]);
+        sphere->center.z  = parse_double(point_split[2]);
+		sphere->center.w  = 1;
+    
+
+			sphere->diameter = parse_double(info[2]);
+		sphere->radius = parse_double(info[2]) / 2;
+
+        parse_color(info[3], &sphere->color);
+		sphere->phong = newphong;
+		sphere->phong.color = normalize_color(sphere->color.r,sphere->color.g, sphere->color.b);
+		render_sphere_transform(sphere);
+
+		push_sphere(rt, sphere);
+		free(sphere);
+
+        // sphere->transform = identity_matrix();
+        // sphere->material.shininess = 200.0;;
+	    // sphere->material.diffuse = 0.7;
+		// sphere->material.specular = 0.2;
+
+		// sphere->material.color.r = sphere->color.r/ 255;
+		// sphere->material.color.g = sphere->color.g/ 255;
+		// sphere->material.color.b = sphere->color.b/ 255;
+
+        // sphere->shape_name = "sp";
+        // sphere->material.ambient = scene_data->amb_ratio;
+		// double **scale;
+        // double **translated;
+		// translated = translation(tuple(sphere->position.x, sphere->position.y , sphere->position.z , 1));
+        // scale = scaling(tuple(sphere->radius / 2, sphere->radius / 2,sphere->radius / 2, 1));
+
+        // sphere->transform =  matrix_multi(translated, scale);
+
+
+
+		// sphere->transform = identity_matrix();
+        // transalation
+        // scaling
+        // rotation
+        // skew
+
+        // ft_lstadd_back(&scene_data->wrld.shapes, ft_lstnew(sphere));
+    }
+    else
+    {
+        free_2d_char_array(point_split);
+        free_2d_char_array(color_split);
+        errormsg("Wrong Input");  
+    }
+    free_2d_char_array(point_split);
+    free_2d_char_array(color_split);
 }
 
 void			get_sphere(char *line, t_rt *rt)

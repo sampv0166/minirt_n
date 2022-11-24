@@ -63,7 +63,7 @@ t_cylinder *cylinder)
 		*idx = (line[*idx]) == '\0' ? *idx : *idx + 1;
 	}
 	if (check != 11)
-		errormsg(26);
+		errormsg2(26);
 	cylinder->color = fill_color(rgb[0], rgb[1], rgb[2]);
 	cylinder->phong = default_phong();
 	cylinder->phong.color = normalize_color(rgb[0], rgb[1], rgb[2]);

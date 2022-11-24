@@ -58,7 +58,7 @@ int				get_light_pos(char *line, int check, int i, t_light *light)
 		*idx = *idx + 1;
 	}
 	if (check != 3)
-		errormsg(15);
+		errormsg2(15);
 	light->pos = create_tuple(xyz[0], xyz[1], xyz[2], 1);
 	free(xyz);
 	return (check);

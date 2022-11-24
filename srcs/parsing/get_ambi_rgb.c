@@ -57,8 +57,9 @@ int				get_ambi_rgb(char *line, int check, int i, t_ambi *ambi)
 		}
 		*idx = (line[*idx]) == '\0' ? *idx : *idx + 1;
 	}
-	if (check != 4)
-		errormsg(7);
+
+	// if (check != 4)
+	// 	errormsg(7);
 	ambi->color = fill_color(rgb[0], rgb[1], rgb[2]);
 	free(rgb);
 	return (check);

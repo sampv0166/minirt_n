@@ -20,12 +20,12 @@ static int		verification_loop(char *line, int j)
 		{
 			if (line[j] == ',' || line[j] == ' ')
 				return (j);
-			errormsg(14);
+			errormsg2(14);
 		}
 		j++;
 	}
 	if (line[j] == '.' && (line[j] < '0' && line[j] > '9'))
-		errormsg(5);
+		errormsg2(5);
 	if (line[j] != '\0')
 		j++;
 	if ((line[j] >= '0' && line[j] <= '9') && line[j] != '\0')
@@ -34,7 +34,7 @@ static int		verification_loop(char *line, int j)
 			j++;
 	}
 	else if ((!(line[j] >= '0' && line[j] <= '9')) && line[j] != '\0')
-		errormsg(14);
+		errormsg2(14);
 	return (j);
 }
 
@@ -48,7 +48,7 @@ static int		check_double_format(char *line, int i)
 	if (line[j] >= '0' && line[j] <= '9')
 		j = verification_loop(line, j);
 	else
-		errormsg(14);
+		errormsg2(14);
 	return (j);
 }
 
@@ -73,7 +73,7 @@ double			get_single_double(char *line, int i)
 
 	j = check_double_format(line, i);
 	if (line[j] == ',')
-		errormsg(49);
+		errormsg2(49);
 	temp = ft_substr(line, i, i + j);
 	coord = ft_atof(temp);
 	free(temp);
@@ -92,5 +92,5 @@ void			comma_check(char *line, int idx, int error)
 		idx++;
 	}
 	if (commas != 2)
-		errormsg(error);
+		errormsg2(error);
 }

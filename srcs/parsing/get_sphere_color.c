@@ -62,7 +62,7 @@ int				get_sphere_color(char *line, int check, int i, t_sphere *sphere)
 		*idx = (line[*idx]) == '\0' ? *idx : *idx + 1;
 	}
 	if (check != 7)
-		errormsg(17);
+		errormsg2(17);
 	sphere->color = fill_color(rgb[0], rgb[1], rgb[2]);
 	sphere->phong = default_phong();
 	sphere->phong.color = normalize_color(rgb[0], rgb[1], rgb[2]);

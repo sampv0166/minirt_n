@@ -63,7 +63,7 @@ int				get_light_color(char *line, int check, int i, t_light *light)
 		*idx = (line[*idx]) == '\0' ? *idx : *idx + 1;
 	}
 	if (check != 7)
-		errormsg(7);
+		errormsg2(7);
 	light->color = fill_color(rgb[0], rgb[1], rgb[2]);
 	free(rgb);
 	return (check);

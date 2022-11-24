@@ -3,50 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/19 18:24:35 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 14:31:28 by gsenra-a         ###   ########.fr       */
+/*   Created: 2022/02/09 22:22:27 by apila-va          #+#    #+#             */
+/*   Updated: 2022/02/22 09:07:33 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
+#include "libft.h"
 
-static int	ft_count_spaces(const char *str, int i)
+void	init(size_t *i, int *s, size_t *res)
 {
-	while ((str[i] == '\t') || (str[i] == '\v') || (str[i] == '\f')
-		|| (str[i] == '\r') || (str[i] == '\n') || (str[i] == ' '))
-	{
-		i++;
-	}
-	return (i);
+	*i = 0;
+	*s = 1;
+	*res = 0;
 }
+
+void	skip_sapces_and_signs(const char *str, size_t *i, int *s)
+{
+	while (str && (str[(*i)] == ' ' || str[(*i)] == '\n' || str[(*i)] == '\t' || \
+		str[(*i)] == '\v' || str[(*i)] == '\f' || str[(*i)] == '\r'))
+		(*i)++;
+	if (str && (str[(*i)] == '-' || str[(*i)] == '+'))
+	{
+		if (str[(*i)] == '-')
+			*s = -1;
+		(*i)++;
+	}
+}
+
+// int	exit_atoi(int *atoi_chec)
+// {
+// 	*atoi_chec = 1;
+// 	return (*atoi_chec);
+// }
 
 int	ft_atoi(const char *str)
 {
-	int						i;
-	int						is_negative;
-	unsigned long long int	result;
+	size_t	i;
+	int	s;
+	size_t	res;
 
-	i = 0;
-	is_negative = 1;
-	result = 0;
-	i = ft_count_spaces(str, i);
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			is_negative = -1;
-		i++;
-	}
-	while ((str[i] != '\0') && (str[i] >= 48) && (str[i] <= 57))
-	{
-		result = (result * 10) + (str[i] - '0');
-		i++;
-	}
-	if (result > LONG_MAX && is_negative == 1)
-		return (-1);
-	else if (result > LONG_MAX && is_negative == -1)
+	init(&i, &s, &res);
+	if (ft_strlen(str) == 1 && (*str == '-' || *str == '+'))
 		return (0);
-	else
-		return (is_negative * (int)result);
+	skip_sapces_and_signs(str, &i, &s);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = (res * 10) + (str[i] - '0');
+		i++;
+		if ((res > 2147483647 && s == 1) || (res > 2147483648 && s == -1))
+			return (0);
+	}
+	if (str[i] != '\0')
+		return (res);
+	return (res * s);
 }

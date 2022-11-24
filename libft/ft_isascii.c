@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 11:26:10 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 14:36:30 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/09/26 19:55:49 by apila-va          #+#    #+#             */
+/*   Updated: 2021/09/30 23:53:56 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
 int	ft_isascii(int c)
 {
 	if (c >= 0 && c <= 127)
+	{
 		return (1);
-	else
-		return (0);
+	}
+	return (0);
 }

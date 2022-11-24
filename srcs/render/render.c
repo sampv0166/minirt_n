@@ -28,7 +28,7 @@ t_mlx *mlx, t_cam *cam)
 		lt_output = shade_hit(comps, rt);
 		normalize_pixel_color(&lt_output);
 		color = denorm_color(lt_output);
-		if (rc->y <= rt->reso.height && rc->x <= rt->reso.width
+		if (rc->y <= (double)HEIGHT && rc->x <= (double)WIDTH
 		&& rc->x >= 0 && rc->y >= 0)
 			ft_pixelput(cam, coord, mlx,
 			create_trgb(0, color.r, color.g, color.b));
@@ -42,16 +42,15 @@ void				raycaster(t_rt *rt, t_mlx *mlx, t_cam *cam)
 	t_raycaster	rc;
 
 	rc.y = 0;
-	while (rc.y < rt->reso.height)
+	while (rc.y < HEIGHT)
 	{
 		rc.x = 0;
-		while (rc.x < rt->reso.width)
+		while (rc.x < WIDTH)
 		{
 			rc.intersec_list = (t_intersec *)ec_malloc(sizeof(t_intersec));
 			rc.intersec_list = init_intersec_list(rc.intersec_list);
 			rc.ray = ray_for_pixel(cam, rc.x, rc.y);
 			intersect_all_polys(rt, &rc);
-				
 			rc.hit = intersec_hit(rc.intersec_list);
 			cast_pixel(&rc, rt, mlx, cam);
 			free_intersecs(rc.intersec_list);
@@ -61,13 +60,10 @@ void				raycaster(t_rt *rt, t_mlx *mlx, t_cam *cam)
 	}
 }
 
-void				canvas(t_rt *rt, t_mlx *mlx)
+void				render(t_rt *rt, t_mlx *mlx)
 {
-	create_images(rt, mlx);
 	
-		mlx->win = mlx_new_window(mlx->mlx, rt->reso.width,
-		rt->reso.height, "MiniRT");
-	// exit(0);
-		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->cam->img, 0, 0);
-
+	create_image(rt, mlx);
+	mlx->win = mlx_new_window(mlx->mlx, WIDTH,HEIGHT, "MiniRT");
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->cam->img, 0, 0);
 }

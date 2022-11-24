@@ -1,28 +1,59 @@
 #include "../../include/minirt.h"
 
-void		errormsg(int errornum)
+void		errormsg2(int num)
 {
-	char	*filename;
-	char	*errstring;
-	int		fd;
-	int		i;
+	// (void) (num);
+	// char	*filename;
+	// char	*errstring;
+	// int		fd;
+	// int		i;
 
-	filename = "srcs/main/error.txt";
-	fd = open(filename, O_RDONLY);
-	i = 0;
-	while ((get_next_line(fd, &errstring) == 1))
-	{
-		if (i == errornum)
-			break ;
-		free(errstring);
-		i++;
-	}
-	if (errstring)
-		ft_putstr_fd(errstring, 2);
-	else
-		ft_putstr_fd("ERROR: Error file not found", 2);
-	write(1, "\n", 2);
-	close(fd);
+	// filename = "srcs/main/error.txt";
+	// fd = open(filename, O_RDONLY);
+	// i = 0;
+	// while ((get_next_line(fd, &errstring) == 1))
+	// {
+
+	// 	if (i == errornum)
+	// 		break ;
+	// 	free(errstring);
+	// 	i++;
+	// }
+	// if (errstring)
+	// 	ft_putstr_fd(errstring, 2);
+	// else
+		// ft_putstr_fd("wrong inputtt", 2);
+		ft_putnbr_fd(num, 2);
+	// write(1, "\n", 2);
+	// close(fd);
+	exit(0);
+}
+
+void		errormsg(char *msg)
+{
+
+	// char	*filename;
+	// char	*errstring;
+	// int		fd;
+	// int		i;
+
+	// filename = "srcs/main/error.txt";
+	// fd = open(filename, O_RDONLY);
+	// i = 0;
+	// while ((get_next_line(fd, &errstring) == 1))
+	// {
+
+	// 	if (i == errornum)
+	// 		break ;
+	// 	free(errstring);
+	// 	i++;
+	// }
+	// if (errstring)
+	// 	ft_putstr_fd(errstring, 2);
+	// else
+		ft_putstr_fd(msg, 2);
+	// write(1, "\n", 2);
+	// close(fd);
 	exit(0);
 }
 
@@ -32,7 +63,7 @@ void		*ec_malloc(size_t size)
 
 	ptr = malloc(size);
 	if (ptr == NULL)
-		errormsg(31);
+		errormsg("malloc error");
 	return (ptr);
 }
 void		*ec_calloc(size_t n, size_t size)
@@ -41,7 +72,7 @@ void		*ec_calloc(size_t n, size_t size)
 
 	ptr = ft_calloc(n, size);
 	if (ptr == NULL)
-		errormsg(31);
+		errormsg("malloc error");
 	return (ptr);
 }
 

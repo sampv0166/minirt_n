@@ -3,32 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 11:15:10 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 16:15:26 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/09/28 07:00:14 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/17 15:24:36 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
-#include <stdlib.h>
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	char	*copydest;
-	char	*copysrc;
+	size_t		i;
 
 	i = 0;
-	copydest = (char *)dest;
-	copysrc = (char *)src;
-	if ((!(dest) && !(src)) && (n > 0))
-		return (NULL);
+	if (dest == src || !n)
+		return (dest);
 	while (i < n)
 	{
-		copydest[i] = copysrc[i];
+		*((char *)dest + i) = *((char *)src + i);
 		i++;
 	}
-	return (copydest);
+	return (dest);
 }

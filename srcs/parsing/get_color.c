@@ -20,7 +20,7 @@ int			get_color(char *line, int i)
 
 	j = i;
 	if (line[j] == '-')
-		errormsg(8);
+		errormsg2(8);
 	if (line[j] >= '0' && line[j] <= '9')
 	{
 		while (line[j] >= '0' && line[j] <= '9')
@@ -30,6 +30,6 @@ int			get_color(char *line, int i)
 	color = ft_atoi(temp);
 	free(temp);
 	if (color > 255 || color < 0)
-		errormsg(8);
+		errormsg2(8);
 	return (color);
 }

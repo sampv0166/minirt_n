@@ -50,17 +50,13 @@ static void		init_qts(t_rt *rt)
 
 void			init_rt(t_rt *rt)
 {
-	t_reso	reso;
 	t_ambi	ambi;
 
 	init_qts(rt);
-	reso.width = 0;
-	reso.height = 0;
 	ambi.light = 0.0;
 	ambi.color.b = 0;
 	ambi.color.r = 0;
 	ambi.color.g = 0;
-	rt->reso = reso;
 	rt->ambi = ambi;
 	init_camera(rt);
 	init_light(rt);

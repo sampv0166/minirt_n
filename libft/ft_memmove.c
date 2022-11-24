@@ -3,35 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 11:16:08 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 16:15:44 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/09/28 09:49:11 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/22 12:27:11 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
-#include <stdlib.h>
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dest, const void *src, size_t len)
 {
-	size_t			i;
-	unsigned char	*ptrsrc;
-	unsigned char	*ptrdst;
+	size_t		i;
 
-	ptrdst = (unsigned char *)dst;
-	ptrsrc = (unsigned char *)src;
 	i = 0;
-	if (!dst && !src)
-		return (NULL);
-	if (*ptrdst == *ptrsrc)
-		return (dst);
-	if (ptrsrc < ptrdst)
-		while (++i <= len)
-			ptrdst[len - i] = ptrsrc[len - i];
+	if (dest == src || !len)
+		return (dest);
+	if (src < dest)
+	{
+		while (i < len)
+		{
+			*((char *)dest + (len - 1)) = *((char *)src + (len - 1));
+			len--;
+		}
+	}
 	else
-		while (len-- > 0)
-			*(ptrdst++) = *(ptrsrc++);
-	return (dst);
+	{
+		ft_memcpy(dest, src, len);
+	}
+	return (dest);
 }

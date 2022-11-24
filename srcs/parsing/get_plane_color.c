@@ -62,7 +62,7 @@ int				get_plane_color(char *line, int check, int i, t_plane *plane)
 		*idx = (line[*idx]) == '\0' ? *idx : *idx + 1;
 	}
 	if (check != 9)
-		errormsg(20);
+		errormsg2(20);
 	plane->color = fill_color(rgb[0], rgb[1], rgb[2]);
 	plane->phong = default_phong();
 	plane->phong.color = normalize_color(rgb[0], rgb[1], rgb[2]);

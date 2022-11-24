@@ -3,35 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcouto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 11:19:25 by lcouto            #+#    #+#             */
-/*   Updated: 2020/01/30 19:34:58 by lcouto           ###   ########.fr       */
+/*   Created: 2021/09/30 02:02:58 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/18 01:30:03 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t	dest_count;
-	size_t	src_count;
 	size_t	i;
 	size_t	j;
 
-	dest_count = ft_strlen(dest);
-	src_count = ft_strlen(src);
-	i = 0;
-	j = dest_count;
-	if (size <= dest_count)
-		return (src_count + size);
-	while (src[i] != '\0' && j + 1 < size)
+	if (dstsize <= ft_strlen(dst))
+		return (dstsize + ft_strlen(src));
+	i = ft_strlen(dst);
+	j = 0;
+	while (src[j] && i + 1 < dstsize)
 	{
-		dest[j] = src[i];
+		dst[i] = src[j];
 		i++;
 		j++;
 	}
-	dest[j] = '\0';
-	return (src_count + dest_count);
+	dst[i] = '\0';
+	return (ft_strlen(dst) + ft_strlen(src + j));
 }

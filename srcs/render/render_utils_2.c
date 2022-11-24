@@ -86,14 +86,3 @@ t_rgba				color_at(t_rt *rt, t_ray ray)
 	return (color);
 }
 
-t_rgba				reflect_color(t_comps comps, t_rt *rt, int bounce)
-{
-	t_ray	reflect_ray;
-	t_rgba	color;
-
-	if (comps.phong.reflect == 0 || bounce <= 0)
-		return (create_rgba(0, 0, 0, 0));
-	reflect_ray = create_ray(comps.over_point, comps.reflect_vec);
-	color = color_at(rt, reflect_ray);
-	return (scalar_color(color, comps.phong.reflect));
-}

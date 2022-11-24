@@ -59,7 +59,7 @@ int				get_plane_norm(char *line, int check, int i, t_plane *plane)
 	}
 	if ((xyz[0] > 1 || xyz[0] < -1) || (xyz[1] > 1 || xyz[1] < -1) ||
 		(xyz[2] > 1 || xyz[2] < -1) || (check != 6))
-		errormsg(21);
+		errormsg2(21);
 	plane->norm = create_tuple(xyz[0], xyz[1], xyz[2], 0);
 	free(xyz);
 	return (check);

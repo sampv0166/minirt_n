@@ -60,7 +60,7 @@ t_cylinder *cylinder)
 	}
 	if ((xyz[0] > 1 || xyz[0] < -1) || (xyz[1] > 1 || xyz[1] < -1) ||
 		(xyz[2] > 1 || xyz[2] < -1) || (check != 6))
-		errormsg(27);
+		errormsg2(27);
 	cylinder->norm = create_tuple(xyz[0], xyz[1], xyz[2], 0);
 	free(xyz);
 	return (check);

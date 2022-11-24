@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strrchr.c                                          :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcouto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 11:21:16 by lcouto            #+#    #+#             */
-/*   Updated: 2020/01/28 11:19:05 by lcouto           ###   ########.fr       */
+/*   Created: 2021/09/27 23:06:23 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/17 17:32:14 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
-#include <stdio.h>
 
 char	*ft_strrchr(const char *str, int c)
 {
-	int		i;
+	int		idx;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	while (i >= 0)
+	idx = ft_strlen((char *)str) + 1;
+	while (idx--)
 	{
-		if (str[i] == c)
-		{
-			return ((char *)&str[i]);
-		}
-		i--;
-	}
-	return (NULL);
+		if (*(str + idx) == (char)c)
+			return ((char *)(str + idx));
+	}	
+	return (0);
 }

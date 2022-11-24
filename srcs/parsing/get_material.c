@@ -26,7 +26,7 @@ static int	ft_get_reflect(char *line, int check, int i, t_phong *phong)
 		}
 	}
 	if (reflect > 1 || reflect < 0)
-		errormsg(42);
+		errormsg2(42);
 	phong->reflect = reflect;
 	return (check);
 }
@@ -46,7 +46,7 @@ static int	ft_get_shininess(char *line, int check, int i, t_phong *phong)
 		i++;
 	}
 	if (shininess > 500 || shininess < 0)
-		errormsg(41);
+		errormsg2(41);
 	phong->shininess = shininess;
 	return (check);
 }
@@ -66,7 +66,7 @@ static int	ft_get_specular(char *line, int check, int i, t_phong *phong)
 		i++;
 	}
 	if (specular > 1 || specular < 0)
-		errormsg(40);
+		errormsg2(40);
 	phong->specular = specular;
 	return (check);
 }
@@ -89,7 +89,7 @@ static int	material_values(char *line, int i, int *chkptr, t_phong *phong)
 		i = get_index(line, i);
 	}
 	if (*chkptr == 3 && line[i] != '\0')
-		errormsg(44);
+		errormsg2(44);
 	return (i);
 }
 
@@ -107,6 +107,6 @@ void		get_material(t_phong *phong, char *line, int i)
 		else if (line[i] >= '0' && line[i] <= '9')
 			i = material_values(line, i, chkptr, phong);
 		else if ((!(line[i] >= '0' && line[i] <= '9')) || (!(line[i] == ' ')))
-			errormsg(5);
+			errormsg2(5);
 	}
 }

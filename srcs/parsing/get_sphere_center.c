@@ -59,7 +59,7 @@ t_sphere *sphere)
 		*idx = *idx + 1;
 	}
 	if (check != 3)
-		errormsg(18);
+		errormsg2(18);
 	sphere->center = create_tuple(xyz[0], xyz[1], xyz[2], 1);
 	free(xyz);
 	return (check);
@@ -81,7 +81,7 @@ t_sphere *sphere)
 		i++;
 	}
 	if (check != 4 || diameter <= 0)
-		errormsg(46);
+		errormsg2(46);
 	sphere->diameter = diameter;
 	sphere->radius = diameter / 2;
 	return (check);

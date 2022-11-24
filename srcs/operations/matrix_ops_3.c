@@ -61,7 +61,7 @@ t_matrix	invert_matrix(t_matrix mat)
 
 	det = det_4x4(mat);
 	if (det == 0)
-		errormsg(37);
+		errormsg("matrix not invertible");
 	new = create_matrix(mat.row, mat.col);
 	idx[0] = 0;
 	while (idx[0] < mat.row)

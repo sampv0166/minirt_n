@@ -29,7 +29,7 @@ t_rgba	scalar_color(t_rgba color, double scalar)
 
 	new.r = color.r * scalar;
 	new.g = color.g * scalar;
-	new.b = color.b * scalar;
+	new.b = color.b * scalar;	
 	return (new);
 }
 

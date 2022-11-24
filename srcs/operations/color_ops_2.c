@@ -39,7 +39,7 @@ t_rgba	create_rgba(double r, double g, double b, double a)
 
 	if ((r < 0 || r > 1) || (g < 0 || g > 1) ||
 		(b < 0 || b > 1) || (a < 0 || a > 1))
-		errormsg(36);
+		errormsg("wrong color value");
 	new.r = r;
 	new.g = g;
 	new.b = b;
@@ -52,7 +52,7 @@ t_rgba	tuple_to_rgba(t_tuple tuple)
 	t_rgba new;
 
 	if (tuple.w != 0 && tuple.w != 1)
-		errormsg(32);
+		errormsg("wrong color value");
 	new.r = tuple.x;
 	new.g = tuple.y;
 	new.b = tuple.z;
@@ -69,6 +69,6 @@ t_tuple	rgba_to_tuple(t_rgba rgba)
 	new.z = rgba.b;
 	new.w = rgba.a;
 	if (new.w != 0 && new.w != 1)
-		errormsg(32);
+		errormsg("wrong color value");
 	return (new);
 }

@@ -59,7 +59,7 @@ t_cylinder *cylinder)
 		*idx = *idx + 1;
 	}
 	if (check != 3)
-		errormsg(25);
+		errormsg2(25);
 	cylinder->pos = create_tuple(xyz[0], xyz[1], xyz[2], 1);
 	free(xyz);
 	return (check);

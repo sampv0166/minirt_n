@@ -3,30 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsenra-a <gsenra-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apila-va <apila-va@42.abudhabi.ae>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 12:19:09 by lcouto            #+#    #+#             */
-/*   Updated: 2021/04/09 16:27:07 by gsenra-a         ###   ########.fr       */
+/*   Created: 2021/10/01 03:54:55 by apila-va          #+#    #+#             */
+/*   Updated: 2021/10/22 12:48:41 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	start;
-	size_t	len;
+	size_t		size_s1;
 
-	if (s1 == NULL || set == NULL)
+	if (!s1 || !set)
 		return (NULL);
-	start = 0;
-	while (s1[start] && ft_strchr(set, s1[start]) != NULL)
-		start++;
-	len = ft_strlen(&s1[start]);
-	if (len != 0)
-		while (s1[start + len - 1]
-			&& ft_strrchr(set, s1[start + len - 1]) != NULL)
-			len--;
-	return (ft_substr(s1, start, len));
+	while (ft_strchr(set, *s1) && *s1 != '\0')
+		s1++;
+	size_s1 = ft_strlen((char *)s1);
+	while (ft_strchr(set, s1[size_s1]) && size_s1 != 0)
+		size_s1--;
+	return (ft_substr((char *)s1, 0, size_s1 + 1));
 }
