@@ -53,57 +53,8 @@ static void		push_cylinder(t_rt *rt, t_cylinder *new_cylinder)
 	rt->qts.cy = rt->qts.cy + 1;
 }
 
-static void		loop_get_values(char *line, int *iptr, int *chkptr,
-t_cylinder *cylinder)
-{
-	if (*chkptr == 0)
-	{
-		*chkptr = get_cylinder_pos(line, *chkptr, *iptr, cylinder);
-		*iptr = get_index(line, *iptr);
-	}
-	else if (*chkptr == 3)
-	{
-		*chkptr = get_cylinder_norm(line, *chkptr, *iptr, cylinder);
-		*iptr = get_index(line, *iptr);
-	}
-	else if (*chkptr == 6)
-	{
-		*chkptr = get_cylinder_diameter(line, *chkptr, *iptr, cylinder);
-		*iptr = get_index(line, *iptr);
-	}
-	else if (*chkptr == 7)
-	{
-		*chkptr = get_cylinder_height(line, *chkptr, *iptr, cylinder);
-		*iptr = get_index(line, *iptr);
-	}
-	else if (*chkptr == 8)
-	{
-		*chkptr = get_cylinder_color(line, *chkptr, *iptr, cylinder);
-		*iptr = get_index(line, *iptr);
-	}
-}
 
-static int		cylinder_loop(char *line, int i, int check,
-t_cylinder *cylinder)
-{
-	int	*iptr;
-	int *chkptr;
 
-	chkptr = &check;
-	iptr = &i;
-	while (line[*iptr] != '\0' && check < 11)
-	{
-		if (line[*iptr] == ' ')
-			*iptr = *iptr + 1;
-		else if ((line[*iptr] >= '0' && line[*iptr] <= '9') ||
-		line[*iptr] == '-')
-			loop_get_values(line, iptr, chkptr, cylinder);
-		else if ((!(line[*iptr] >= '0' && line[*iptr] <= '9')) ||
-		(!(line[*iptr] == ' ')))
-			errormsg2(5);
-	}
-	return (i);
-}
 
 static void store_in_scene_data(char **point_split, char **norm_vec, char **info, t_rt *rt)
 {
@@ -198,23 +149,3 @@ void parse_cylinder(char **info, t_rt *rt)
 }
 
 
-void			get_cylinder(char *line, t_rt *rt)
-{
-	int			i;
-	int			check;
-	t_cylinder	*cylinder;
-	t_phong		newphong;
-
-	cylinder = (t_cylinder *)ec_malloc(sizeof(t_cylinder));
-	newphong = default_phong();
-	check = 0;
-	i = 2;
-	i = cylinder_loop(line, i, check, cylinder);
-	get_material(&newphong, line, i);
-	cylinder->phong.specular = newphong.specular;
-	cylinder->phong.shininess = newphong.shininess;
-	cylinder->phong.reflect = newphong.reflect;
-	render_cylinder_transform(cylinder);
-	push_cylinder(rt, cylinder);
-	free(cylinder);
-}

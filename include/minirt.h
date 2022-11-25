@@ -41,9 +41,7 @@ typedef struct		s_qts
 	int				lt;
 	int				sp;
 	int				pl;
-	int				sq;
 	int				cy;
-	int				tr;
 }					t_qts;
 
 typedef struct		s_rt
@@ -85,7 +83,6 @@ typedef struct		s_comps
 	t_phong			phong;
 	t_tuple			eye_vec;
 	t_tuple			normal_vec;
-	t_tuple			reflect_vec;
 	t_tuple			over_point;
 	int				inside;
 }					t_comps;
@@ -101,14 +98,6 @@ void				errormsg(char *msg);
 void				*ec_malloc(size_t size);
 void				*ec_calloc(size_t n, size_t size);
 void				parse_current_line(char *line, t_rt *rt);
-int					get_index(char *line, int i);
-int					get_index_nocomma(char *line, int i);
-double				get_coord(char *line, int i);
-int					get_color(char *line, int i);
-void				get_material(t_phong *phong, char *line, int i);
-t_color				fill_color(int r, int g, int b);
-double				get_single_double(char *line, int i);
-void				comma_check(char *line, int idx, int error);
 char				*get_next_line(int fd);
 char	*free_memmory(char **ptr);
 size_t	get_current_line_size(char *saved_line);
@@ -126,60 +115,36 @@ void replace_tabs_and_newline(char *line);
 void parse_sphere(char **info, t_rt *rt);
 void parse_plane(char **info, t_rt *rt);
 void parse_cylinder(char **info, t_rt *rt);
-// int verify_digits(char **color_split ,char **info, t_rt *rt);
-/*
-** Window resolution parsing functions.
-*/
 
-void				get_resolution(char *line, t_rt *rt, t_mlx *mlx);
 
-/*
-** Ambient light and color parsing functions.
-*/
 
-void				get_ambient(char *line, t_rt *rt);
-int					get_ambi_rgb(char *line, int check, int i, t_ambi *ambi);
+
 
 /*
 ** Camera parsing functions.
 */
 
 void				get_camera(char *line, t_rt *rt);
-int					get_cam_view(char *line, int check, int i, t_cam *cam);
-int					get_cam_pos(char *line, int check, int i, t_cam *cam);
-int					get_cam_fov(char *line, int check, int i, t_cam *cam);
+
 
 /*
 ** Light parsing functions.
 */
 
 void				get_light(char *line, t_rt *rt);
-int					get_light_pos(char *line, int check, int i, t_light *light);
-int					get_light_color(char *line, int check, int i,
-					t_light *light);
 
 /*
 ** Sphere parsing functions.
 */
 
 void				get_sphere(char *line, t_rt *rt);
-int					get_sphere_center(char *line, int check, int i,
-					t_sphere *light);
-int					get_sphere_color(char *line, int check, int i,
-					t_sphere *light);
-int					get_sphere_diameter(char *line, int check, int i,
-					t_sphere *sphere);
+
 
 /*
 ** Plane parsing functions.
 */
 
 void				get_plane(char *line, t_rt *rt);
-int					get_plane_pos(char *line, int check, int i, t_plane *light);
-int					get_plane_norm(char *line, int check, int i,
-					t_plane *plane);
-int					get_plane_color(char *line, int check, int i,
-					t_plane *light);
 
 
 /*
@@ -187,18 +152,6 @@ int					get_plane_color(char *line, int check, int i,
 */
 
 void				get_cylinder(char *line, t_rt *rt);
-int					get_cylinder_pos(char *line, int check, int i,
-					t_cylinder *light);
-int					get_cylinder_color(char *line, int check, int i,
-					t_cylinder *light);
-int					get_cylinder_side(char *line, int check, int i,
-					t_cylinder *cylinder);
-int					get_cylinder_height(char *line, int check, int i,
-					t_cylinder *cylinder);
-int					get_cylinder_diameter(char *line, int check, int i,
-					t_cylinder *cylinder);
-int					get_cylinder_norm(char *line, int check, int i,
-					t_cylinder *cylinder);
 
 
 int					double_equal(double a, double b);
@@ -214,7 +167,6 @@ void				ft_pixelput(t_cam *cam, int *coords,
 int					create_trgb(int t, int r, int g, int b);
 int					close_program(void *ptr);
 void				normalize_pixel_color(t_rgba *lt_output);
-void				loading_bar(double percent, int total, t_rt *rt);
 void				add_ambient_to_lights(t_rt *rt);
 void				free_intersecs(t_intersec *intersec);
 

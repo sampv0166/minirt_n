@@ -22,11 +22,6 @@ static void		parse(t_rt *rt, int fd)
 	
 	free(line);
 	add_ambient_to_lights(rt);
-		
-	// if (rt->qts.cam == 0)
-	// 	ft_putstr_fd(
-	// 	"You didn't set up any cameras. I can't render anything!\n", 1);
-
 }
 
 

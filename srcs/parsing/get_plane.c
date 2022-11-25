@@ -47,43 +47,8 @@ static void		push_plane(t_rt *rt, t_plane *new_plane)
 	rt->qts.pl = rt->qts.pl + 1;
 }
 
-static int		loop_get_values(char *line, int i, int *chkptr,
-t_plane *plane)
-{
-	if (*chkptr == 0)
-	{
-		*chkptr = get_plane_pos(line, *chkptr, i, plane);
-		i = get_index(line, i);
-	}
-	else if (*chkptr == 3)
-	{
-		*chkptr = get_plane_norm(line, *chkptr, i, plane);
-		i = get_index(line, i);
-	}
-	else if (*chkptr == 6)
-	{
-		*chkptr = get_plane_color(line, *chkptr, i, plane);
-		i = get_index(line, i);
-	}
-	return (i);
-}
 
-static int		plane_loop(char *line, int i, int check, t_plane *plane)
-{
-	int *chkptr;
 
-	chkptr = &check;
-	while (line[i] != '\0' && check < 9)
-	{
-		if (line[i] == ' ')
-			i++;
-		else if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
-			i = loop_get_values(line, i, chkptr, plane);
-		else if ((!(line[i] >= '0' && line[i] <= '9')) || (!(line[i] == ' ')))
-			errormsg2(5);
-	}
-	return (i);
-}
 
 
 static int verify_digits(char **nrm_vec_split, char **pnt_split, char **color_split )
@@ -156,23 +121,3 @@ void parse_plane(char **info, t_rt *rt)
     free_2d_char_array(color_split);
 }
 
-void			get_plane(char *line, t_rt *rt)
-{
-	int			i;
-	int			check;
-	t_plane		*plane;
-	t_phong		newphong;
-
-	plane = (t_plane *)ec_malloc(sizeof(t_plane));
-	newphong = default_phong();
-	check = 0;
-	i = 2;
-	i = plane_loop(line, i, check, plane);
-	get_material(&newphong, line, i);
-	plane->phong.specular = newphong.specular;
-	plane->phong.shininess = newphong.shininess;
-	plane->phong.reflect = newphong.reflect;
-	render_plane_transform(plane);
-	push_plane(rt, plane);
-	free(plane);
-}

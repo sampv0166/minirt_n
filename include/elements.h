@@ -15,15 +15,6 @@
 
 # include "minirt.h"
 
-/*
-** Holds values for window size.
-*/
-
-typedef struct			s_reso
-{
-	int					width;
-	int					height;
-}						t_reso;
 
 /*
 ** Holds values for ambient lighting.
@@ -51,7 +42,6 @@ typedef struct			s_cam
 	t_matrix			transform;
 	void				*img;
 	char				*address;
-	struct s_cam		*next;
 }						t_cam;
 
 /*
@@ -78,7 +68,6 @@ typedef struct			s_phong
 	double				ambient;
 	double				specular;
 	double				shininess;
-	double				reflect;
 }						t_phong;
 
 
@@ -91,7 +80,6 @@ typedef struct			s_ltparams
 	t_tuple				ambient;
 	t_tuple				diffuse;
 	t_tuple				specular;
-	t_tuple				reflect_v;
 }						t_ltparams;
 
 /*

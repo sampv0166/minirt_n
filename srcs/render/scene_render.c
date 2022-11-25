@@ -49,7 +49,7 @@ void			prepare_computations(t_comps *comps, t_rt *rt, t_raycaster *rc)
 	}
 	else
 		comps->inside = 0;
-	comps->reflect_vec = reflect(rc->ray.direction, comps->normal_vec);
+	// comps->reflect_vec = reflect(rc->ray.direction, comps->normal_vec);
 	comps->over_point = add_tuple(comps->position,
 		scalar_x_tuple(comps->normal_vec, EPSILON));
 }

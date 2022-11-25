@@ -49,44 +49,6 @@ static void		push_sphere(t_rt *rt, t_sphere *new_sphere)
 	rt->qts.sp = rt->qts.sp + 1;
 }
 
-static int		loop_get_values(char *line, int i, int *chkptr,
-t_sphere *sphere)
-{
-	if (*chkptr == 0)
-	{
-		*chkptr = get_sphere_center(line, *chkptr, i, sphere);
-		i = get_index(line, i);
-	}
-	else if (*chkptr == 3)
-	{
-		*chkptr = get_sphere_diameter(line, *chkptr, i, sphere);
-		i = get_index(line, i);
-	}
-	else if (*chkptr == 4)
-	{
-		*chkptr = get_sphere_color(line, *chkptr, i, sphere);
-		i = get_index(line, i);
-	}
-	return (i);
-}
-
-static int		sphere_loop(char *line, int i, int check, t_sphere *sphere)
-{
-	int *chkptr;
-
-	chkptr = &check;
-	while (line[i] != '\0' && check < 7)
-	{
-		if (line[i] == ' ')
-			i++;
-		else if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
-			i = loop_get_values(line, i, chkptr, sphere);
-		else if ((!(line[i] >= '0' && line[i] <= '9')) || (!(line[i] == ' ')))
-			errormsg2(5);
-	}
-	return (i);
-}
-
 static int verify_digits( char **pnt_split, char **color_split ,char **info)
 {
     int i;
@@ -143,33 +105,6 @@ void parse_sphere(char **info, t_rt *rt)
 		push_sphere(rt, sphere);
 		free(sphere);
 
-        // sphere->transform = identity_matrix();
-        // sphere->material.shininess = 200.0;;
-	    // sphere->material.diffuse = 0.7;
-		// sphere->material.specular = 0.2;
-
-		// sphere->material.color.r = sphere->color.r/ 255;
-		// sphere->material.color.g = sphere->color.g/ 255;
-		// sphere->material.color.b = sphere->color.b/ 255;
-
-        // sphere->shape_name = "sp";
-        // sphere->material.ambient = scene_data->amb_ratio;
-		// double **scale;
-        // double **translated;
-		// translated = translation(tuple(sphere->position.x, sphere->position.y , sphere->position.z , 1));
-        // scale = scaling(tuple(sphere->radius / 2, sphere->radius / 2,sphere->radius / 2, 1));
-
-        // sphere->transform =  matrix_multi(translated, scale);
-
-
-
-		// sphere->transform = identity_matrix();
-        // transalation
-        // scaling
-        // rotation
-        // skew
-
-        // ft_lstadd_back(&scene_data->wrld.shapes, ft_lstnew(sphere));
     }
     else
     {
@@ -179,25 +114,4 @@ void parse_sphere(char **info, t_rt *rt)
     }
     free_2d_char_array(point_split);
     free_2d_char_array(color_split);
-}
-
-void			get_sphere(char *line, t_rt *rt)
-{
-	int			i;
-	int			check;
-	t_sphere	*sphere;
-	t_phong		newphong;
-
-	sphere = (t_sphere *)ec_malloc(sizeof(t_sphere));
-	newphong = default_phong();
-	check = 0;
-	i = 2;
-	i = sphere_loop(line, i, check, sphere);
-	get_material(&newphong, line, i);
-	sphere->phong.specular = newphong.specular;
-	sphere->phong.shininess = newphong.shininess;
-	sphere->phong.reflect = newphong.reflect;
-	render_sphere_transform(sphere);
-	push_sphere(rt, sphere);
-	free(sphere);
 }

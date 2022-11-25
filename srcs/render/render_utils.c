@@ -51,7 +51,6 @@ t_phong		default_phong(void)
 	new.ambient = 0.1;
 	new.specular = 0.9;
 	new.shininess = 200.0;
-	new.reflect = 0.2;
 	return (new);
 }
 
@@ -80,12 +79,12 @@ t_rgba		lighting(t_comps args, t_light *current_light, int in_shadow)
 	{
 		params.diffuse = scalar_x_tuple(params.effective_color,
 		(args.phong.diffuse * params.light_dot_normal));
-		params.reflect_v = reflect(negate_tuple(params.light_v),
-			args.normal_vec);
-		params.reflect_dot_eye = dot_product(params.reflect_v, args.eye_vec);
-		if (params.reflect_dot_eye <= 0)
-			params.specular = create_tuple(0, 0, 0, 0);
-		else
+		// params.reflect_v = reflect(negate_tuple(params.light_v),
+		// 	args.normal_vec);
+		// params.reflect_dot_eye = dot_product(params.reflect_v, args.eye_vec);
+		// if (params.reflect_dot_eye <= 0)
+		// 	params.specular = create_tuple(0, 0, 0, 0);
+		// else
 			params.specular = scalar_x_tuple(rgba_to_tuple(
 			current_light->intensity), args.phong.specular *
 			(pow(params.reflect_dot_eye, args.phong.shininess)));
