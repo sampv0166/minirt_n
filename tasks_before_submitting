@@ -1,0 +1,5 @@
+1. fix mem leaks
+2.  fix fd leaks
+3.  fix normiette
+4.  undestand each function and write comments on top of it
+5.  on error, exit the program propery without any memmeory leaks
