@@ -1,6 +1,6 @@
 #include "../../include/minirt.h"
 
-static void		init_polys(t_rt *rt)
+static void		init_objects(t_rt *rt)
 {
 	rt->sphere = NULL;
 	rt->plane = NULL;
@@ -60,5 +60,5 @@ void			init_rt(t_rt *rt)
 	rt->ambi = ambi;
 	init_camera(rt);
 	init_light(rt);
-	init_polys(rt);
+	init_objects(rt);
 }
